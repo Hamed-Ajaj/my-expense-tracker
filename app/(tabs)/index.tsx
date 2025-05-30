@@ -1,29 +1,32 @@
 import React from "react";
-import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import HomeTopHeader from "@/components/top-header";
+import { Link } from "expo-router";
+import Transactions from "@/components/transactions";
 
 const Home = () => {
   return (
-    <View className="flex  flex-col">
+    <View className="flex-1  gap-16 bg-white flex-col">
       {/* top header container */}
-      <View className="h-[300px] rounded-b-[40px] shadow-md px-5 py-16 bg-[#2F7E79] relative">
-        {/* Greetings */}
-        <View className="flex flex-row items-center justify-between">
-          <View className="flex flex-col gap-2">
-            <Text className="text-[12px] text-white">Good Day,</Text>
-            <Text className="text-[16px] text-white font-semibold">
-              Hamed Ajaj
-            </Text>
-          </View>
-          {/* notification icon */}
-          <TouchableOpacity
-            onPress={() => console.log("Button Pressed")}
-            className="bg-gray-200 p-2 rounded-md"
-          >
-            <Ionicons name="notifications-outline" size={24} color="#333" />
-          </TouchableOpacity>
+      <HomeTopHeader />
+
+      {/* Recent Transaction  */}
+      <View className="flex px-5 py-4 flex-col gap-4">
+        {/* section title */}
+        <View className="flex  flex-row justify-between items-centertemc">
+          <Text className="text-[18px] font-semibold">
+            Transactions history
+          </Text>
+          <Link href="/transactions">
+            <Text className="text-[14px] text-[#666666]">See all</Text>
+          </Link>
         </View>
-        <View className="absolute -bottom-14 w-[250px] h-[250px] bg-gray-300 left-[80px]"></View>
+
+        {/* Transactions */}
+        <View style={{ height: 300 }}>
+          <Transactions />
+        </View>
       </View>
     </View>
   );
