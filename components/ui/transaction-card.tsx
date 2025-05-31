@@ -1,0 +1,32 @@
+import React from "react";
+import { Text, View } from "react-native";
+
+const TransactionCard = ({ item }) => {
+  return (
+    <View className=" my-2 flex-row bg-gray-100 p-3 rounded-md justify-between items-center">
+      {/* title */}
+      <View className="flex flex-col gap-1.5">
+        <Text className="font-medium">{item.title}</Text>
+        <Text className="text-[13px] text-[666666]">
+          {item.date.toLocaleDateString()}
+        </Text>
+      </View>
+
+      {/* amount */}
+      <View className="flex flex-row gap-1.5">
+        <Text
+          className={`text-[18px] font-semibold ${item.type === "expense" ? "text-red-500" : "text-green-500"}`}
+        >
+          {item.type === "expense" ? "-" : "+"}
+        </Text>
+        <Text
+          className={`text-[18px] font-semibold ${item.type === "expense" ? "text-red-500" : "text-green-500"}`}
+        >
+          ${" " + item.amount}
+        </Text>
+      </View>
+    </View>
+  );
+};
+
+export default TransactionCard;
