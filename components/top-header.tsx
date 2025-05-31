@@ -22,7 +22,7 @@ const HomeTopHeader = () => {
         </TouchableOpacity>
       </View>
       {/* Bank Account money */}
-      <View className="absolute flex flex-col gap-8 py-8 px-6 -bottom-14 w-[90%] h-[190px] rounded-[14px] bg-[#1B5C55] left-[40px]">
+      <View className="absolute flex flex-col justify-center gap-8 py-10 px-6 -bottom-14 w-[90%] h-[190px] rounded-[14px] bg-[#1B5C55] left-[40px]">
         {/* Total balance */}
         <View className="flex  flex-col gap-2">
           <Text className="text-white text-[16px] font-semibold">
@@ -31,12 +31,12 @@ const HomeTopHeader = () => {
           <Text className="text-[25px] font-bold text-white">$1000</Text>
         </View>
         {/* expense & income */}
-        <View className="flex flex-row justify-between items-center">
+        <View className="flex flex-row  justify-between items-center">
           <View className="flex flex-col gap-2">
             <View className="flex flex-row gap-2 items-center">
               <View className="flex justify-center items-center w-6 h-6 bg-white/20 rounded-full">
                 <Ionicons name="arrow-down" size={12} color="#fff" />
-              </View>{" "}
+              </View>
               <Text className="text-white font-medium">Income</Text>
             </View>
             {/* value */}
@@ -46,7 +46,7 @@ const HomeTopHeader = () => {
             <View className="flex flex-row gap-2 items-center">
               <View className="flex justify-center items-center w-6 h-6 bg-white/20 rounded-full">
                 <Ionicons name="arrow-up" size={12} color="#fff" />
-              </View>{" "}
+              </View>
               <Text className="text-white font-medium">Expenses</Text>
             </View>
             {/* value */}

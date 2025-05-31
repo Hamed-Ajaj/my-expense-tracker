@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "my-expense-tracker",
-    "slug": "my-expense-tracker",
+    "name": "MyCents",
+    "slug": "MyCents",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
