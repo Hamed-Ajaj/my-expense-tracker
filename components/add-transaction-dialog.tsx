@@ -9,51 +9,35 @@ import {
 import { Button, ButtonText } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Input, InputField } from "./ui/input";
 import { View, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import { Toast, ToastDescription, ToastTitle, useToast } from "./ui/toast";
+import { AddTransactionContext } from "@/contexts/addTransactionContext";
+import { expenseCategories, incomeCategories } from "@/constants";
 
 export default function AddTransactionDialog({
   showAddTransaction,
   setShowAddTransaction,
+}: {
+  showAddTransaction: boolean;
+  setShowAddTransaction: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const { handleAddTransactions } = useContext(AddTransactionContext);
   const [transactionType, setTransactionType] = useState("income");
   const [formData, setFormData] = useState({
     title: "",
     amount: "",
     category: "food",
     currency: "USD",
+    note: "",
   });
 
-  const [errors, setErrors] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const toast = useToast();
 
-  const expenseCategories = [
-    { label: "🍔 Food & Dining", value: "food" },
-    { label: "🚗 Transportation", value: "transport" },
-    { label: "🏠 Housing", value: "housing" },
-    { label: "🛍️ Shopping", value: "shopping" },
-    { label: "💊 Healthcare", value: "healthcare" },
-    { label: "🎯 Entertainment", value: "entertainment" },
-    { label: "📚 Education", value: "education" },
-    { label: "💼 Business", value: "business" },
-    { label: "📱 Utilities", value: "utilities" },
-    { label: "🎁 Gifts", value: "gifts" },
-    { label: "📊 Other", value: "other" },
-  ];
-
-  const incomeCategories = [
-    { label: "💼 Salary", value: "salary" },
-    { label: "💰 Freelance", value: "freelance" },
-    { label: "🏢 Business", value: "business" },
-    { label: "📈 Investment", value: "investment" },
-    { label: "🎁 Gift", value: "gift" },
-    { label: "💸 Bonus", value: "bonus" },
-    { label: "🏠 Rental", value: "rental" },
-    { label: "💎 Dividend", value: "dividend" },
-    { label: "📊 Other", value: "other" },
-  ];
   const category =
     transactionType === "expense" ? expenseCategories : incomeCategories;
   const handleClose = () => {
@@ -64,13 +48,14 @@ export default function AddTransactionDialog({
       amount: "",
       category: "food",
       currency: "USD",
+      note: "",
     });
     setTransactionType("expense");
     setErrors({});
   };
 
   const validateForm = () => {
-    const newErrors = {};
+    const newErrors: Record<string, string> = {};
 
     if (!formData.title.trim()) {
       newErrors.title = "Title is required";
@@ -96,11 +81,25 @@ export default function AddTransactionDialog({
 
     try {
       // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
 
       // Here you would typically save the transaction
-      console.log("Transaction data:", { ...formData });
-
+      console.log("Transaction data:", { ...formData, transactionType });
+      handleAddTransactions({ ...formData, transactionType });
+      toast.show({
+        placement: "bottom",
+        duration: 3000,
+        render: () => {
+          return (
+            <Toast action="success" variant="solid">
+              <ToastTitle>Transaction Added Succesfully</ToastTitle>
+              <ToastDescription>
+                {formData.amount} has beed added succesfully to your account
+              </ToastDescription>
+            </Toast>
+          );
+        },
+      });
       handleClose();
     } catch (error) {
       console.error("Error saving transaction:", error);
@@ -109,7 +108,7 @@ export default function AddTransactionDialog({
     }
   };
 
-  const updateFormData = (field, value) => {
+  const updateFormData = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear error when user starts typing
     if (errors[field]) {
@@ -140,29 +139,43 @@ export default function AddTransactionDialog({
         <AlertDialogBody className="px-6 py-4 space-y-5">
           {/* Transaction Type Toggle */}
           <View className="flex flex-col space-y-2">
-            <Text className="text-gray-700 font-semibold text-sm mb-1">
+            <Text className="text-gray-700 font-semibold text-lg mb-1">
               Transaction Type
             </Text>
-            <View className="flex flex-row gap-2 items-center">
+            <View className="flex flex-row my-2  items-center">
               <TouchableOpacity
-                className={
-                  transactionType === "income"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200"
-                }
+                className={`
+                  py-4 px-6 w-[50%] rounded-lg flex justify-center items-center
+                  ${
+                    transactionType === "income"
+                      ? "bg-[#2F7E79] "
+                      : "bg-gray-200"
+                  }
+                    `}
                 onPress={() => setTransactionType("income")}
               >
-                <Text>income</Text>
+                <Text
+                  className={`${transactionType === "income" ? "text-white" : "text-black"}`}
+                >
+                  income
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                className={
-                  transactionType === "expense"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200"
-                }
+                className={`
+                  py-4 px-6 w-[50%] rounded-lg flex justify-center items-center
+
+                  ${
+                    transactionType === "expense"
+                      ? "bg-red-500 text-white"
+                      : "bg-gray-200"
+                  }`}
                 onPress={() => setTransactionType("expense")}
               >
-                <Text>expense</Text>
+                <Text
+                  className={`${transactionType === "expense" ? "text-white" : "text-black"}`}
+                >
+                  expense
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -262,6 +275,30 @@ export default function AddTransactionDialog({
               </Picker>
             </View>
           </View>
+
+          {/* Extra Notes Input */}
+          <View className="flex flex-col space-y-2">
+            <Text className="text-gray-700 font-semibold text-sm mb-1">
+              Extra Notes
+            </Text>
+            <View className="flex flex-row items-center space-x-3">
+              <View className="flex-1">
+                <Input
+                  variant="outline"
+                  size="lg"
+                  className={`border-2 rounded-xl bg-gray-50 shadow-sm border-gray-200 focus:border-blue-400`}
+                >
+                  <InputField
+                    placeholder="Notes"
+                    value={formData.note}
+                    onChangeText={(value) => updateFormData("note", value)}
+                    className="text-gray-900 font-semibold text-lg"
+                    type="text"
+                  />
+                </Input>
+              </View>
+            </View>
+          </View>
         </AlertDialogBody>
 
         <AlertDialogFooter className="px-6 pb-6 pt-2">
@@ -270,15 +307,13 @@ export default function AddTransactionDialog({
               onPress={handleSubmit}
               size="lg"
               className={`flex-1 rounded-xl shadow-lg ${
-                formData.type === "expense"
-                  ? "bg-red-500 hover:bg-red-600"
-                  : "bg-green-500 hover:bg-green-600"
+                transactionType === "expense" ? "bg-red-500" : "bg-[#2F7E79] "
               }`}
               variant="solid"
               disabled={isLoading}
             >
               <ButtonText className="text-white font-semibold">
-                {isLoading ? "Adding..." : `Add`}
+                {isLoading ? "Adding..." : `Add ${transactionType}`}
               </ButtonText>
             </Button>
           </View>

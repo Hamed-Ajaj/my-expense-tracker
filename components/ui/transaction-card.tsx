@@ -1,7 +1,8 @@
+import { Transaction } from "@/types/transactions";
 import React from "react";
 import { Text, View } from "react-native";
 
-const TransactionCard = ({ item }) => {
+const TransactionCard = ({ item }: any) => {
   return (
     <View className=" my-2 flex-row  p-3 bg-gray-50 rounded-md justify-between items-center">
       {/* title */}
@@ -15,12 +16,12 @@ const TransactionCard = ({ item }) => {
       {/* amount */}
       <View className="flex flex-row gap-1.5">
         <Text
-          className={`text-[18px] font-semibold ${item.type === "expense" ? "text-red-500" : "text-green-500"}`}
+          className={`text-[18px] font-semibold ${item.transactionType === "expense" ? "text-red-500" : "text-green-500"}`}
         >
-          {item.type === "expense" ? "-" : "+"}
+          {item.transactionType === "expense" ? "-" : "+"}
         </Text>
         <Text
-          className={`text-[18px] font-semibold ${item.type === "expense" ? "text-red-500" : "text-green-500"}`}
+          className={`text-[18px] font-semibold ${item.transactionType === "expense" ? "text-red-500" : "text-green-500"}`}
         >
           ${" " + item.amount}
         </Text>
