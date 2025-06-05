@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AddTransactionContext } from "@/contexts/addTransactionContext";
 const Transactions = () => {
   const { transactions } = useContext(AddTransactionContext);
-
+  console.log(transactions);
   return (
     <FlatList
       data={transactions}

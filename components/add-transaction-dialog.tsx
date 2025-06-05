@@ -84,8 +84,8 @@ export default function AddTransactionDialog({
       // await new Promise((resolve) => setTimeout(resolve, 1500));
 
       // Here you would typically save the transaction
-      console.log("Transaction data:", { ...formData, transactionType });
-      handleAddTransactions({ ...formData, transactionType });
+      console.log("Transaction data:", { ...formData, type: transactionType });
+      handleAddTransactions({ ...formData, type: transactionType });
       toast.show({
         placement: "bottom",
         duration: 3000,
