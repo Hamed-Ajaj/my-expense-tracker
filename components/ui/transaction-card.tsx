@@ -1,13 +1,14 @@
+import { Transaction } from "@/types/transactions";
 import React from "react";
 import { Text, View } from "react-native";
 
-const TransactionCard = ({ item }) => {
+const TransactionCard = ({ item }: any) => {
   return (
-    <View className=" my-2 flex-row bg-gray-100 p-3 rounded-md justify-between items-center">
+    <View className=" my-2 flex-row  p-3 bg-gray-50 rounded-md justify-between items-center">
       {/* title */}
-      <View className="flex flex-col gap-1.5">
+      <View className="flex flex-col gap-1">
         <Text className="font-medium">{item.title}</Text>
-        <Text className="text-[13px] text-[666666]">
+        <Text className="text-[13px] text-[#666666]">
           {item.date.toLocaleDateString()}
         </Text>
       </View>

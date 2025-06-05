@@ -14,7 +14,7 @@ const Home = () => {
       <HomeTopHeader />
 
       {/* Recent Transaction  */}
-      <View className="flex px-5 py-4 flex-col gap-4">
+      <View className="flex px-5 py-4 flex-col gap-5">
         {/* section title */}
         <View className="flex  flex-row justify-between items-center">
           <Text className="text-[18px] font-semibold">
