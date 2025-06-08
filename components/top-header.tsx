@@ -1,8 +1,10 @@
+import { AddTransactionContext } from "@/contexts/addTransactionContext";
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 
 const HomeTopHeader = () => {
+  const { totalBalance, income, expenses } = useContext(AddTransactionContext);
   return (
     <View className="h-[300px] rounded-b-[40px] shadow-md px-5 py-16 bg-[#2F7E79] relative">
       {/* Greetings */}
@@ -28,7 +30,9 @@ const HomeTopHeader = () => {
           <Text className="text-white text-[16px] font-semibold">
             Total Balance
           </Text>
-          <Text className="text-[25px] font-bold text-white">$1000</Text>
+          <Text className="text-[25px] font-bold text-white">
+            $ {totalBalance ? totalBalance : 0}
+          </Text>
         </View>
         {/* expense & income */}
         <View className="flex flex-row  justify-between items-center">
@@ -40,7 +44,12 @@ const HomeTopHeader = () => {
               <Text className="text-white font-medium">Income</Text>
             </View>
             {/* value */}
-            <Text className="text-white text-[20px] font-semibold">1000$</Text>
+            <Text className="text-white text-[20px] font-semibold">
+              ${" "}
+              {income
+                ? income.reduce((acc, item) => acc + parseFloat(item.amount), 0)
+                : 0}
+            </Text>
           </View>
           <View className="flex flex-col gap-2">
             <View className="flex flex-row gap-2 items-center">
@@ -51,7 +60,13 @@ const HomeTopHeader = () => {
             </View>
             {/* value */}
             <Text className="text-white text-end text-[20px] font-semibold">
-              1000$
+              ${" "}
+              {expenses
+                ? expenses.reduce(
+                    (acc, item) => acc + parseFloat(item.amount),
+                    0,
+                  )
+                : 0}
             </Text>
           </View>
         </View>

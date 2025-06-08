@@ -5,10 +5,16 @@ export const AddTransactionContext = createContext<{
   transactions: Transaction[];
   setTransactions: React.Dispatch<React.SetStateAction<Transaction[]>>;
   handleAddTransactions: (transaction: Transaction) => void;
+  totalBalance: number;
+  income: Transaction[];
+  expenses: Transaction[];
 }>({
   transactions: [],
   setTransactions: () => {},
   handleAddTransactions: () => {},
+  totalBalance: 0,
+  income: [],
+  expenses: [],
 });
 
 export const AddTransactionProvider = ({
@@ -16,32 +22,17 @@ export const AddTransactionProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [transactions, setTransactions] = useState([
-    {
-      id: "1",
-      title: "Groceries",
-      amount: 50,
-      date: new Date("2025-01-01"),
-      type: "expense",
-      note: "",
-    },
-    {
-      id: "2",
-      title: "Dinner",
-      amount: 30,
-      date: new Date("2025-01-02"),
-      type: "income",
-      note: "",
-    },
-    {
-      id: "3",
-      title: "Transportation",
-      amount: 20,
-      date: new Date("2025-01-03"),
-      type: "income",
-      note: "",
-    },
-  ]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  const totalBalance = transactions?.reduce((acc, current) => {
+    const value = parseFloat(current.amount);
+    return current.type === "expense" ? acc - value : acc + value;
+  }, 0);
+
+  const income = transactions.filter((trans) => trans.type === "income");
+  const expenses = transactions.filter((trans) => trans.type === "expense");
+
+  console.log(income);
   const handleAddTransactions = (transaction) => {
     setTransactions([
       ...transactions,
@@ -57,7 +48,14 @@ export const AddTransactionProvider = ({
   };
   return (
     <AddTransactionContext.Provider
-      value={{ transactions, setTransactions, handleAddTransactions }}
+      value={{
+        transactions,
+        setTransactions,
+        handleAddTransactions,
+        totalBalance,
+        income,
+        expenses,
+      }}
     >
       {children}
     </AddTransactionContext.Provider>

@@ -4,10 +4,12 @@ import { useContext } from "react";
 import { AddTransactionContext } from "@/contexts/addTransactionContext";
 const Transactions = () => {
   const { transactions } = useContext(AddTransactionContext);
-  console.log(transactions);
+  const recentTransactions = transactions
+    ?.sort((a, b) => b.id - a.id)
+    ?.slice(-10);
   return (
     <FlatList
-      data={transactions}
+      data={recentTransactions}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => <TransactionCard item={item} />}
     />

@@ -30,7 +30,21 @@ export default function TabLayout() {
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={30} name="home" color={color} />
+            <FontAwesome
+              size={30}
+              name="home"
+              color={color}
+              onPress={() => console.log("test")}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="charts"
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={30} name="pie-chart" color={color} />
           ),
         }}
       />
