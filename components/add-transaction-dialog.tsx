@@ -111,7 +111,7 @@ export default function AddTransactionDialog({
   const updateFormData = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear error when user starts typing
-    if (errors[field]) {
+    if (errors && errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: "" }));
     }
   };

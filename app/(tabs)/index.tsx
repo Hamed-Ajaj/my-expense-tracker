@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import HomeTopHeader from "@/components/top-header";
 import { Link } from "expo-router";
@@ -8,6 +8,7 @@ import AddTransactionDialog from "@/components/add-transaction-dialog";
 
 const Home = () => {
   const [showAddTransaction, setShowAddTransaction] = useState(false);
+
   return (
     <View className="flex-1 relative  gap-16 bg-white flex-col">
       {/* top header container */}
