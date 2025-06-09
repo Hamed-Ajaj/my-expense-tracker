@@ -7,7 +7,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: "#549994",
-        tabBarShowLabel: false,
+        // tabBarShowLabel: false,
         headerShown: false,
         tabBarStyle: Platform.select({
           ios: {
@@ -42,9 +42,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="charts"
         options={{
-          tabBarShowLabel: false,
+          tabBarShowLabel: true,
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={30} name="pie-chart" color={color} />
+            <FontAwesome size={30} name="area-chart" color={color} />
           ),
         }}
       />

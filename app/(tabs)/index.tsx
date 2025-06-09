@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import HomeTopHeader from "@/components/top-header";
 import { Link } from "expo-router";
-import Transactions from "@/components/transactions";
+import RecenetTransactions from "@/components/recent-transactions";
 import FloatingAddButton from "@/components/ui/floating-add-button";
 import AddTransactionDialog from "@/components/add-transaction-dialog";
 
@@ -18,9 +18,7 @@ const Home = () => {
       <View className="flex px-5 py-4 flex-col gap-5">
         {/* section title */}
         <View className="flex  flex-row justify-between items-center">
-          <Text className="text-[18px] font-semibold">
-            Transactions history
-          </Text>
+          <Text className="text-[18px] font-semibold">Recent Transactions</Text>
 
           <Link href="/transactions">
             <Text className="text-[14px] text-[#666666]">See all</Text>
@@ -29,7 +27,7 @@ const Home = () => {
 
         {/* Transactions */}
         <View style={{ height: 300 }}>
-          <Transactions />
+          <RecenetTransactions />
         </View>
       </View>
 
