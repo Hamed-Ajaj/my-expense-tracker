@@ -2,7 +2,7 @@ import { FlatList } from "react-native";
 import TransactionCard from "./ui/transaction-card";
 import { useContext } from "react";
 import { AddTransactionContext } from "@/contexts/addTransactionContext";
-const Transactions = () => {
+const RecentTransactions = () => {
   const { transactions } = useContext(AddTransactionContext);
   const recentTransactions = transactions
     ?.sort((a, b) => b.id - a.id)
@@ -16,4 +16,4 @@ const Transactions = () => {
   );
 };
 
-export default Transactions;
+export default RecentTransactions;
